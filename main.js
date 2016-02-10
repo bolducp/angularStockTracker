@@ -11,11 +11,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/'); // gives a default view
 });
 
-
 app.controller('listCtrl', function($scope, $state, Stocks){
   $scope.stocks = Stocks.stocks;
 });
-
 
 app.controller('addCtrl', function($scope, $state, Stocks){
   $scope.symbol = " ";
@@ -37,7 +35,7 @@ app.controller('addCtrl', function($scope, $state, Stocks){
       $scope.searchResults = res.data;
       $scope.showTable = true;
     }, function(res){
-      alert("error: " + res);
+      swal("error: " + res);
       });
 
     $scope.search = " ";
@@ -54,10 +52,14 @@ app.service('Stocks', function($http, $q){
   this.addStock = function(stockSymbol){
     var promise = $http.jsonp(`http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol=${stockSymbol}&jsoncallback=JSON_CALLBACK`);
     promise.then(function(res){
+      if (res.data.Message){
+        return swal("Sorry. No such stock.");
+      }
       thisService.stocks.push(res);
-      alert("Stock added");
+      swal("Stock added");
+
     }, function(res){
-      alert("error: " + res);
+      swal("error: " + res);
       });
     };
 

@@ -4,22 +4,22 @@
   <meta charset="UTF-8">
   <title>Stock Tracker</title>
   <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Exo' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/bower_components/sweetalert/dist/sweetalert.css">
   <link rel="stylesheet" href="style.css">
   <script src="/bower_components/angular/angular.min.js"></script>
   <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="/bower_components/sweetalert/dist/sweetalert.min.js"></script>
   <script src="main.js"></script>
 </head>
 <body ng-app="stockTracker">
   <div class="container">
     <h1>Stock Tracker</h1>
-
     <button ui-sref="home" class="btn btn-default">Home</button>
     <button ui-sref="listStocks" class="btn btn-default">List Stocks</button>
     <button ui-sref="addStock" class="btn btn-default">Add a stock</button>
-
     <ui-view></ui-view>
   </div>
-
 
 </body>
 </html>
