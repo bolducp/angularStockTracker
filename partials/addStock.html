@@ -1,0 +1,34 @@
+<br>
+<br>
+<h1>Add a Stock</h1>
+<div ng-controller="addCtrl">
+  <h2>Search for a stock symbol:</h2>
+  <form novalidate class="simple-form">
+    Find a stock symbol: <input type="text" ng-model="search" /><br />
+    <input type="button" ng-click="lookUp()" value="Search" />
+  </form>
+
+  <div class="ng-hide" ng-show="showTable">
+    <h3>Possible matches:</h3>
+    <table class="table" >
+      <thead>
+        <th>Name</th>
+        <th>Symbol</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="stock in searchResults">
+          <td>{{stock.Name}}</td>
+          <td>{{stock.Symbol}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <br>
+  <h2>Add Stock to Tracked Stocks:</h2>
+  <form novalidate class="simple-form">
+    Stock Symbol: <input type="text" ng-model="symbol" /><br />
+    <input type="button" ng-click="reset()" value="Reset" />
+    <input type="button" ng-click="add()" value="Add" />
+  </form>
+</div>

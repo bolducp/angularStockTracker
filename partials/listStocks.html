@@ -1,0 +1,23 @@
+<h1>List Stocks</h1>
+<div ng-controller="listCtrl">
+  <table class="table" ng-if="stocks.length">
+    <thead>
+      <th>Symbol</th>
+      <th>Name</th>
+      <th>Open</th>
+      <th>High</th>
+      <th>Low</th>
+      <th>Latest</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="stock in stocks">
+        <td>{{stock.data.Symbol}}</td>
+        <td>{{stock.data.Name}}</td>
+        <td>{{stock.data.Open}}</td>
+        <td>{{stock.data.High}}</td>
+        <td>{{stock.data.Low}}</td>
+        <td>{{stock.data.LastPrice}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
