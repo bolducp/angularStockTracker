@@ -4,7 +4,6 @@
     <h3>You are not currently tracking any stocks.</h3>
     <h4>Add a stock to begin.</h4>
   </div>
-  </div>
   <div ng-if="stocks.length">
     <h1>List Stocks</h1>
     <table class="table" ng-if="stocks.length">
@@ -18,14 +17,20 @@
       </thead>
       <tbody>
         <tr ng-repeat="stock in stocks">
-          <td>{{stock.data.Symbol}}</td>
-          <td>{{stock.data.Name}}</td>
-          <td>{{stock.data.Open}}</td>
-          <td>{{stock.data.High}}</td>
-          <td>{{stock.data.Low}}</td>
-          <td>{{stock.data.LastPrice}}</td>
+          <td>{{stock.Symbol}}</td>
+          <td>{{stock.Name}}</td>
+          <td>{{stock.Open}}</td>
+          <td>{{stock.High}}</td>
+          <td>{{stock.Low}}</td>
+          <td>{{stock.LastPrice}}</td>
         </tr>
       </tbody>
     </table>
+    <br>
+    <h2>Delete a stock from tracked stocks:</h2>
+    <form novalidate class="simple-form" ng-submit="delete(symbolToDelete)">
+      Stock Symbol: <input type="text" ng-model="symbolToDelete" /><br />
+      <input type="submit"  value="Delete" />
+    </form>
   </div>
 </div>

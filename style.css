@@ -2,3 +2,7 @@ body {
   background-color: #ccd9ff;
   font-family: 'Exo', sans-serif;
 }
+
+li:hover {
+  cursor: pointer;
+}

@@ -13,6 +13,10 @@ app.config(function($stateProvider, $urlRouterProvider) {
 
 app.controller('listCtrl', function($scope, $state, Stocks){
   $scope.stocks = Stocks.stocks;
+
+  $scope.delete = function(symbolToDelete){
+    Stocks.deleteStock(symbolToDelete);
+  };
 });
 
 app.controller('addCtrl', function($scope, $state, Stocks){
@@ -30,7 +34,6 @@ app.controller('addCtrl', function($scope, $state, Stocks){
 
   $scope.lookUp = function(){
     var promise = Stocks.lookUp($scope.search);
-
     promise.then(function(res){
       $scope.searchResults = res.data;
       $scope.showTable = true;
@@ -41,7 +44,6 @@ app.controller('addCtrl', function($scope, $state, Stocks){
     $scope.search = " ";
   };
 });
-
 
 app.service('Stocks', function($http, $q){
   if (!this.stockSymbols){
@@ -55,9 +57,11 @@ app.service('Stocks', function($http, $q){
       if (res.data.Message){
         return swal("Sorry. No such stock.");
       }
-      thisService.stocks.push(res);
-      swal("Stock added");
-
+      else if (thisService.stocks.findIndex(function(stock){ return stock.Symbol === res.data.Symbol }) !== -1){
+        return swal(`You are already tracking ${res.data.Name}.`);
+      }
+      thisService.stocks.push(res.data);
+      swal(res.data.Symbol + " added.");
     }, function(res){
       swal("error: " + res);
       });
@@ -66,4 +70,13 @@ app.service('Stocks', function($http, $q){
   this.lookUp = function(stockName){
     return $http.jsonp(`http://dev.markitondemand.com/MODApis/Api/v2/Lookup/jsonp?input=${stockName}&jsoncallback=JSON_CALLBACK`);
   };
+
+  this.deleteStock = function(stockSymbol){
+    if (thisService.stocks.findIndex(function(stock){ return stock.Symbol === stockSymbol }) === -1){
+      return  swal(`You are not tracking ${stockSymbol}.`);
+    }
+    var index = thisService.stocks.findIndex(function(stock){ return stock.Symbol === stockSymbol });
+    thisService.stocks.splice(index, 1);
+  };
+
 });
